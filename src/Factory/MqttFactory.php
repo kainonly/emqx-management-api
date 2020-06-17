@@ -5,24 +5,11 @@ namespace EMQX\API\Factory;
 
 use EMQX\API\Common\MqttPublishOption;
 use EMQX\API\Common\MqttSubscribeOption;
+use EMQX\API\Common\MqttUnsubscribeOption;
 use EMQX\API\Common\Response;
 
 class MqttFactory extends Factory
 {
-    /**
-     * Subscribe a topic
-     * @param MqttSubscribeOption $option
-     * @return Response
-     */
-    public function subscribe(MqttSubscribeOption $option): Response
-    {
-        return $this->client->request(
-            'POST',
-            ['mqtt', 'subscribe'],
-            $option
-        );
-    }
-
     /**
      * Publish a MQTT message
      * @param MqttPublishOption $option
@@ -38,50 +25,72 @@ class MqttFactory extends Factory
     }
 
     /**
-     * Unsubscribe a topic
+     * Batch publish MQTT messages
+     * @param MqttPublishOption[] $options
      * @return Response
      */
-    public function unsubscribe(): Response
+    public function publishBatch(array $options): Response
     {
         return $this->client->request(
             'POST',
-            ['mqtt', 'unsubscribe']
+            ['mqtt', 'publish_batch'],
+            $options
+        );
+    }
+
+    /**
+     * Subscribe a topic
+     * @param MqttSubscribeOption $option
+     * @return Response
+     */
+    public function subscribe(MqttSubscribeOption $option): Response
+    {
+        return $this->client->request(
+            'POST',
+            ['mqtt', 'subscribe'],
+            $option
+        );
+    }
+
+    /**
+     * Unsubscribe a topic
+     * @param MqttUnsubscribeOption $option
+     * @return Response
+     */
+    public function unsubscribe(MqttUnsubscribeOption $option): Response
+    {
+        return $this->client->request(
+            'POST',
+            ['mqtt', 'unsubscribe'],
+            $option
         );
     }
 
     /**
      * Batch subscribes topics
+     * @param MqttSubscribeOption[] $options
      * @return Response
      */
-    public function subscribe_batch(): Response
+    public function subscribeBatch(array $options): Response
     {
         return $this->client->request(
             'POST',
-            ['mqtt', 'subscribe_batch']
-        );
-    }
-
-    /**
-     * Batch publish MQTT messages
-     * @return Response
-     */
-    public function publish_batch(): Response
-    {
-        return $this->client->request(
-            'POST',
-            ['mqtt', 'publish_batch']
+            ['mqtt', 'subscribe_batch'],
+            $options
         );
     }
 
     /**
      * Batch unsubscribes topics
+     * @param MqttUnsubscribeOption[] $options
      * @return Response
      */
-    public function unsubscribe_batch(): Response
+    public function unsubscribeBatch(array $options): Response
     {
         return $this->client->request(
             'POST',
-            ['mqtt', 'unsubscribe_batch']
+            ['mqtt', 'unsubscribe_batch'],
+            $options
         );
     }
 }
