@@ -21,7 +21,7 @@ class HttpClient implements HttpClientInterface
     /**
      * @param string $method
      * @param array $uri
-     * @param object $body
+     * @param array|object|null $body
      * @return Response
      * @noinspection PhpDocMissingThrowsInspection
      * @inheritDoc
@@ -29,7 +29,7 @@ class HttpClient implements HttpClientInterface
     public function request(
         string $method,
         array $uri,
-        object $body = null
+        $body = null
     ): Response
     {
         try {

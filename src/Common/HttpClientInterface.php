@@ -8,12 +8,12 @@ interface HttpClientInterface
     /**
      * @param string $method
      * @param array $uri
-     * @param object $body
+     * @param array|object|null $body
      * @return Response
      */
     public function request(
         string $method,
         array $uri,
-        object $body = null
+        $body = null
     ): Response;
 }

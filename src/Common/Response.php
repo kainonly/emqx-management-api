@@ -31,7 +31,7 @@ class Response
         $data = !empty($raw) ? json_decode($raw, true) : [];
         $self->error = $data['code'] !== 0;
         $self->data = $data['data'] ?? [];
-        $self->msg = $self->error ? $data['code'] : 'ok';
+        $self->msg = $self->error ? (string)$data['code'] : 'ok';
         return $self;
     }
 
