@@ -11,6 +11,7 @@ use EMQX\API\Common\HttpClientInterface;
 use EMQX\API\Common\Response;
 use EMQX\API\Factory\ClientsFactory;
 use EMQX\API\Factory\MqttFactory;
+use EMQX\API\Factory\SubscriptionsFactory;
 use GuzzleHttp\Client;
 use Psr\Container\ContainerInterface;
 
@@ -115,6 +116,16 @@ class EMQXClient
     public function clients(): ClientsFactory
     {
         return $this->container->make(ClientsFactory::class);
+    }
+
+    /**
+     * @return SubscriptionsFactory
+     * @throws DependencyExceptionAlias
+     * @throws NotFoundException
+     */
+    public function subscriptions(): SubscriptionsFactory
+    {
+        return $this->container->make(SubscriptionsFactory::class);
     }
 
 }
