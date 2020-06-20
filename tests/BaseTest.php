@@ -25,6 +25,22 @@ abstract class BaseTest extends TestCase
      * @var EMQXClient
      */
     protected EMQXClient $client;
+    /**
+     * @var string
+     */
+    protected string $node;
+    /**
+     * @var string
+     */
+    protected string $topic;
+    /**
+     * @var string
+     */
+    protected string $key;
+    /**
+     * @var string
+     */
+    protected string $clientid;
 
     /**
      * setUp
@@ -34,6 +50,10 @@ abstract class BaseTest extends TestCase
         $this->uri = getenv('uri');
         $this->appid = getenv('appid');
         $this->appsecret = getenv('appsecret');
+        $this->node = getenv('node');
+        $this->topic = getenv('topic');
+        $this->key = getenv('key');
+        $this->clientid = getenv('clientid');
         $client = new Client([
             'base_uri' => $this->uri,
             'auth' => [$this->appid, $this->appsecret],

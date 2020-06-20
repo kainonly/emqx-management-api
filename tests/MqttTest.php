@@ -11,8 +11,9 @@ class MqttTest extends BaseTest
     public function testPublish(): void
     {
         try {
+            $topic = $this->topic . '/' . $this->key;
             $option = new MqttPublishOption(
-                ['notification/b2a22542-147a-4cad-b531-aa228c8c4279'],
+                [$topic],
                 'hello'
             );
             $option->setEncoding('plain');
@@ -28,8 +29,9 @@ class MqttTest extends BaseTest
     public function testPublishBatch(): void
     {
         try {
+            $topic = $this->topic . '/' . $this->key;
             $option = new MqttPublishOption(
-                ['notification/b2a22542-147a-4cad-b531-aa228c8c4279'],
+                [$topic],
                 'hello'
             );
             $option->setEncoding('plain');
@@ -46,8 +48,8 @@ class MqttTest extends BaseTest
     {
         try {
             $response = $this->client->mqtt()->subscribe(
-                ['notification'],
-                'dev0'
+                [$this->topic],
+                $this->clientid
             );
             $this->assertFalse($response->isError());
         } catch (Exception $e) {
@@ -60,8 +62,8 @@ class MqttTest extends BaseTest
         try {
             $response = $this->client->mqtt()->subscribeBatch([
                 [
-                    'topics' => ['notification'],
-                    'clientid' => 'dev0'
+                    'topics' => [$this->topic],
+                    'clientid' => $this->clientid
                 ]
             ]);
             $this->assertFalse($response->isError());
@@ -74,8 +76,8 @@ class MqttTest extends BaseTest
     {
         try {
             $response = $this->client->mqtt()->unsubscribe(
-                'notification',
-                'dev0'
+                $this->topic,
+                $this->clientid
             );
             $this->assertFalse($response->isError());
         } catch (Exception $e) {
@@ -87,7 +89,7 @@ class MqttTest extends BaseTest
     {
         try {
             $response = $this->client->mqtt()->unsubscribeBatch([
-                ['topic' => 'notification', 'clientid' => 'tests']
+                ['topic' => $this->topic, 'clientid' => $this->clientid]
             ]);
             $this->assertFalse($response->isError());
         } catch (Exception $e) {
