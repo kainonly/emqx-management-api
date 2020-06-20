@@ -11,6 +11,7 @@ use EMQX\API\Common\HttpClientInterface;
 use EMQX\API\Common\Response;
 use EMQX\API\Factory\ClientsFactory;
 use EMQX\API\Factory\MqttFactory;
+use EMQX\API\Factory\RoutesFactory;
 use EMQX\API\Factory\SubscriptionsFactory;
 use GuzzleHttp\Client;
 use Psr\Container\ContainerInterface;
@@ -128,4 +129,13 @@ class EMQXClient
         return $this->container->make(SubscriptionsFactory::class);
     }
 
+    /**
+     * @return RoutesFactory
+     * @throws DependencyExceptionAlias
+     * @throws NotFoundException
+     */
+    public function routes(): RoutesFactory
+    {
+        return $this->container->make(RoutesFactory::class);
+    }
 }
