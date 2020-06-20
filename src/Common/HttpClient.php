@@ -21,7 +21,8 @@ class HttpClient implements HttpClientInterface
     /**
      * @param string $method
      * @param array $uri
-     * @param array|object|null $body
+     * @param array|null $query
+     * @param array|null $body
      * @return Response
      * @noinspection PhpDocMissingThrowsInspection
      * @inheritDoc
@@ -29,18 +30,18 @@ class HttpClient implements HttpClientInterface
     public function request(
         string $method,
         array $uri,
-        $body = null
+        ?array $query = null,
+        ?array $body = null
     ): Response
     {
         try {
             $uri = array_filter($uri, fn($v) => $v !== null);
-            $options = [
-                'headers' => [
-                    'Content-Type' => 'application/json'
-                ]
-            ];
+            $options = [];
+            if (!empty($query)) {
+                $options['query'] = array_filter($query, fn($v) => $v !== null);
+            }
             if (!empty($body)) {
-                $options['body'] = json_encode($body);
+                $options['json'] = array_filter($body, fn($v) => $v !== null);
             }
             /** @noinspection PhpUnhandledExceptionInspection */
             return Response::make(

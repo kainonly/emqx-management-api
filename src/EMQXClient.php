@@ -9,6 +9,7 @@ use DI\NotFoundException;
 use EMQX\API\Common\HttpClient;
 use EMQX\API\Common\HttpClientInterface;
 use EMQX\API\Common\Response;
+use EMQX\API\Factory\ClientsFactory;
 use EMQX\API\Factory\MqttFactory;
 use GuzzleHttp\Client;
 use Psr\Container\ContainerInterface;
@@ -59,6 +60,18 @@ class EMQXClient
     }
 
     /**
+     * 返回 EMQ X 支持的所有 Endpoints
+     * @return Response
+     */
+    public function endpoints(): Response
+    {
+        return $this->client->request(
+            'GET',
+            []
+        );
+    }
+
+    /**
      * 返回集群下节点的基本信息
      * @param string|null $node 节点名字，不指定时返回所有节点的信息
      * @return Response
@@ -92,6 +105,16 @@ class EMQXClient
     public function mqtt(): MqttFactory
     {
         return $this->container->make(MqttFactory::class);
+    }
+
+    /**
+     * @return ClientsFactory
+     * @throws DependencyExceptionAlias
+     * @throws NotFoundException
+     */
+    public function authClient(): ClientsFactory
+    {
+        return $this->container->make(ClientsFactory::class);
     }
 
 }

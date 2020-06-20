@@ -4,8 +4,6 @@ declare(strict_types=1);
 namespace EMQX\API\Factory;
 
 use EMQX\API\Common\MqttPublishOption;
-use EMQX\API\Common\MqttSubscribeOption;
-use EMQX\API\Common\MqttUnsubscribeOption;
 use EMQX\API\Common\Response;
 
 class MqttFactory extends Factory
@@ -20,7 +18,8 @@ class MqttFactory extends Factory
         return $this->client->request(
             'POST',
             ['mqtt', 'publish'],
-            $option
+            [],
+            $option->getBody()
         );
     }
 
@@ -34,41 +33,35 @@ class MqttFactory extends Factory
         return $this->client->request(
             'POST',
             ['mqtt', 'publish_batch'],
-            $options
+            [],
+            array_map(fn($v) => $v->getBody(), $options)
         );
     }
 
     /**
      * Subscribe a topic
-     * @param MqttSubscribeOption $option
+     * @param array $topics
+     * @param string $clientid
+     * @param int $qos
      * @return Response
      */
-    public function subscribe(MqttSubscribeOption $option): Response
+    public function subscribe(array $topics, string $clientid, int $qos = 0): Response
     {
         return $this->client->request(
             'POST',
             ['mqtt', 'subscribe'],
-            $option
-        );
-    }
-
-    /**
-     * Unsubscribe a topic
-     * @param MqttUnsubscribeOption $option
-     * @return Response
-     */
-    public function unsubscribe(MqttUnsubscribeOption $option): Response
-    {
-        return $this->client->request(
-            'POST',
-            ['mqtt', 'unsubscribe'],
-            $option
+            [],
+            [
+                'topics' => implode(',', $topics),
+                'clientid' => $clientid,
+                'qos' => $qos
+            ]
         );
     }
 
     /**
      * Batch subscribes topics
-     * @param MqttSubscribeOption[] $options
+     * @param array $options
      * @return Response
      */
     public function subscribeBatch(array $options): Response
@@ -76,13 +69,38 @@ class MqttFactory extends Factory
         return $this->client->request(
             'POST',
             ['mqtt', 'subscribe_batch'],
-            $options
+            [],
+            array_map(fn($v) => [
+                'topics' => implode(',', $v['topics']),
+                'clientid' => $v['clientid'],
+                'qos' => $v['qos'] ?? 0
+            ], $options)
+        );
+    }
+
+    /**
+     * Unsubscribe a topic
+     * @param string $topic
+     * @param string $clientid
+     * @return Response
+     */
+    public function unsubscribe(string $topic, string $clientid): Response
+    {
+        return $this->client->request(
+            'POST',
+            ['mqtt', 'unsubscribe'],
+            [],
+            [
+                'topic' => $topic,
+                'clientid' => $clientid
+            ]
+
         );
     }
 
     /**
      * Batch unsubscribes topics
-     * @param MqttUnsubscribeOption[] $options
+     * @param array $options
      * @return Response
      */
     public function unsubscribeBatch(array $options): Response
@@ -90,6 +108,7 @@ class MqttFactory extends Factory
         return $this->client->request(
             'POST',
             ['mqtt', 'unsubscribe_batch'],
+            [],
             $options
         );
     }

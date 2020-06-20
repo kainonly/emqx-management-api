@@ -4,19 +4,20 @@ declare(strict_types=1);
 namespace EMQXAPITests;
 
 use EMQX\API\Common\MqttPublishOption;
-use EMQX\API\Common\MqttSubscribeOption;
-use EMQX\API\Common\MqttUnsubscribeOption;
 use Exception;
 
 class MqttTest extends BaseTest
 {
-
     public function testPublish(): void
     {
         try {
-            $option = new MqttPublishOption();
-            $option->topic = 'notification/38b1367f-2c82-48a5-96ed-4f318febcbcf';
-            $option->payload = 'hello';
+            $option = new MqttPublishOption(
+                ['notification/b2a22542-147a-4cad-b531-aa228c8c4279'],
+                'hello'
+            );
+            $option->setEncoding('plain');
+            $option->setQos(0);
+            $option->setRetain(false);
             $response = $this->client->mqtt()->publish($option);
             $this->assertFalse($response->isError());
         } catch (Exception $e) {
@@ -27,9 +28,13 @@ class MqttTest extends BaseTest
     public function testPublishBatch(): void
     {
         try {
-            $option = new MqttPublishOption();
-            $option->topic = 'notification/38b1367f-2c82-48a5-96ed-4f318febcbcf';
-            $option->payload = 'hello';
+            $option = new MqttPublishOption(
+                ['notification/b2a22542-147a-4cad-b531-aa228c8c4279'],
+                'hello'
+            );
+            $option->setEncoding('plain');
+            $option->setQos(0);
+            $option->setRetain(false);
             $response = $this->client->mqtt()->publishBatch([$option]);
             $this->assertFalse($response->isError());
         } catch (Exception $e) {
@@ -40,10 +45,10 @@ class MqttTest extends BaseTest
     public function testSubscribe(): void
     {
         try {
-            $option = new MqttSubscribeOption();
-            $option->topic = 'notification';
-            $option->clientid = 'tests';
-            $response = $this->client->mqtt()->subscribe($option);
+            $response = $this->client->mqtt()->subscribe(
+                ['notification'],
+                'dev0'
+            );
             $this->assertFalse($response->isError());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
@@ -53,10 +58,12 @@ class MqttTest extends BaseTest
     public function testSubscribeBatch(): void
     {
         try {
-            $option = new MqttSubscribeOption();
-            $option->topic = 'notification';
-            $option->clientid = 'tests';
-            $response = $this->client->mqtt()->subscribeBatch([$option]);
+            $response = $this->client->mqtt()->subscribeBatch([
+                [
+                    'topics' => ['notification'],
+                    'clientid' => 'dev0'
+                ]
+            ]);
             $this->assertFalse($response->isError());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
@@ -66,10 +73,10 @@ class MqttTest extends BaseTest
     public function testUnsubscribe(): void
     {
         try {
-            $option = new MqttUnsubscribeOption();
-            $option->topic = 'notification';
-            $option->clientid = 'tests';
-            $response = $this->client->mqtt()->unsubscribe($option);
+            $response = $this->client->mqtt()->unsubscribe(
+                'notification',
+                'dev0'
+            );
             $this->assertFalse($response->isError());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
@@ -79,10 +86,9 @@ class MqttTest extends BaseTest
     public function testUnsubscribeBatch(): void
     {
         try {
-            $option = new MqttUnsubscribeOption();
-            $option->topic = 'notification';
-            $option->clientid = 'tests';
-            $response = $this->client->mqtt()->unsubscribeBatch([$option]);
+            $response = $this->client->mqtt()->unsubscribeBatch([
+                ['topic' => 'notification', 'clientid' => 'tests']
+            ]);
             $this->assertFalse($response->isError());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
