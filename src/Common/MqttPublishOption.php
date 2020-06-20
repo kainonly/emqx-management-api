@@ -6,38 +6,92 @@ namespace EMQX\API\Common;
 class MqttPublishOption
 {
     /**
-     * 主题，与 topics 至少指定其中之一
-     * @var string
-     */
-    public string $topic;
-    /**
      * 以 , 分割的多个主题，使用此字段能够同时发布消息到多个主题
-     * @var string
+     * @var array
      */
-    public string $topics;
+    private array $topics;
     /**
      * 客户端标识符
      * @var string
      */
-    public string $clientid;
+    private string $clientid;
     /**
      * 消息正文
      * @var string
      */
-    public string $payload;
+    private string $payload;
     /**
      * 消息正文使用的编码方式，目前仅支持 plain 与 base64 两种
      * @var string
      */
-    public string $encoding = 'plain';
+    private string $encoding = 'plain';
     /**
      * QoS 等级
      * @var int
      */
-    public int $qos = 0;
+    private int $qos = 0;
     /**
      * 是否为保留消息
      * @var bool
      */
-    public bool $retain = false;
+    private bool $retain = false;
+
+    /**
+     * MqttPublishOption constructor.
+     * @param array $topics
+     * @param string $payload
+     */
+    public function __construct(array $topics, string $payload)
+    {
+        $this->topics = $topics;
+        $this->payload = $payload;
+    }
+
+    /**
+     * @param string $clientid
+     */
+    public function setClientid(string $clientid): void
+    {
+        $this->clientid = $clientid;
+    }
+
+    /**
+     * @param string $encoding
+     */
+    public function setEncoding(string $encoding): void
+    {
+        $this->encoding = $encoding;
+    }
+
+    /**
+     * @param int $qos
+     */
+    public function setQos(int $qos): void
+    {
+        $this->qos = $qos;
+    }
+
+    /**
+     * @param bool $retain
+     */
+    public function setRetain(bool $retain): void
+    {
+        $this->retain = $retain;
+    }
+
+    /**
+     * 返回参数
+     * @return array
+     */
+    public function getBody(): array
+    {
+        return [
+            'topics' => implode(',', $this->topics),
+            'clientid' => $this->clientid ?? null,
+            'payload' => $this->payload,
+            'encoding' => $this->encoding,
+            'qos' => $this->qos,
+            'retain' => $this->retain
+        ];
+    }
 }

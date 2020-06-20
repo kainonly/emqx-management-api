@@ -5,8 +5,19 @@ namespace EMQXAPITests;
 
 use Exception;
 
-class BrokersTest extends BaseTest
+class MainTest extends BaseTest
 {
+    public function testGetEndpoints(): void
+    {
+        try {
+            $response = $this->client->endpoints();
+            $this->assertFalse($response->isError());
+            $this->assertNotEmpty($response->getData());
+        } catch (Exception $e) {
+            $this->expectErrorMessage($e->getMessage());
+        }
+    }
+
     public function testGetBrokers(): void
     {
         try {
