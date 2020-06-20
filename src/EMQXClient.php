@@ -112,7 +112,7 @@ class EMQXClient
      * @throws DependencyExceptionAlias
      * @throws NotFoundException
      */
-    public function authClient(): ClientsFactory
+    public function clients(): ClientsFactory
     {
         return $this->container->make(ClientsFactory::class);
     }
