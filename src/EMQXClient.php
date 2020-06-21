@@ -10,6 +10,7 @@ use EMQX\API\Common\HttpClient;
 use EMQX\API\Common\HttpClientInterface;
 use EMQX\API\Common\Response;
 use EMQX\API\Factory\ClientsFactory;
+use EMQX\API\Factory\ListenersFactory;
 use EMQX\API\Factory\MqttFactory;
 use EMQX\API\Factory\PluginsFactory;
 use EMQX\API\Factory\RoutesFactory;
@@ -148,5 +149,15 @@ class EMQXClient
     public function plugins(): PluginsFactory
     {
         return $this->container->make(PluginsFactory::class);
+    }
+
+    /**
+     * @return ListenersFactory
+     * @throws DependencyExceptionAlias
+     * @throws NotFoundException
+     */
+    public function listeners(): ListenersFactory
+    {
+        return $this->container->make(ListenersFactory::class);
     }
 }
