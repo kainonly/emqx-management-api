@@ -17,7 +17,7 @@ class MetricsTest extends BaseTest
         }
     }
 
-    public function testForNodes(): void
+    public function testListsForNodes(): void
     {
         try {
             $response = $this->client->metrics()->listsForNodes($this->node);

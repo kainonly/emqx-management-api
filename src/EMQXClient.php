@@ -16,6 +16,7 @@ use EMQX\API\Factory\ModulesFactory;
 use EMQX\API\Factory\MqttFactory;
 use EMQX\API\Factory\PluginsFactory;
 use EMQX\API\Factory\RoutesFactory;
+use EMQX\API\Factory\StatsFactory;
 use EMQX\API\Factory\SubscriptionsFactory;
 use GuzzleHttp\Client;
 use Psr\Container\ContainerInterface;
@@ -181,5 +182,15 @@ class EMQXClient
     public function metrics(): MetricsFactory
     {
         return $this->container->make(MetricsFactory::class);
+    }
+
+    /**
+     * @return StatsFactory
+     * @throws DependencyExceptionAlias
+     * @throws NotFoundException
+     */
+    public function stats(): StatsFactory
+    {
+        return $this->container->make(StatsFactory::class);
     }
 }
