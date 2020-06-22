@@ -9,6 +9,7 @@ use DI\NotFoundException;
 use EMQX\API\Common\HttpClient;
 use EMQX\API\Common\HttpClientInterface;
 use EMQX\API\Common\Response;
+use EMQX\API\Factory\AlarmsFactory;
 use EMQX\API\Factory\ClientsFactory;
 use EMQX\API\Factory\ListenersFactory;
 use EMQX\API\Factory\MetricsFactory;
@@ -192,5 +193,15 @@ class EMQXClient
     public function stats(): StatsFactory
     {
         return $this->container->make(StatsFactory::class);
+    }
+
+    /**
+     * @return AlarmsFactory
+     * @throws DependencyExceptionAlias
+     * @throws NotFoundException
+     */
+    public function alarms(): AlarmsFactory
+    {
+        return $this->container->make(AlarmsFactory::class);
     }
 }
