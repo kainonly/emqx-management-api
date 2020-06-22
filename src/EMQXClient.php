@@ -11,6 +11,7 @@ use EMQX\API\Common\HttpClientInterface;
 use EMQX\API\Common\Response;
 use EMQX\API\Factory\ClientsFactory;
 use EMQX\API\Factory\ListenersFactory;
+use EMQX\API\Factory\MetricsFactory;
 use EMQX\API\Factory\ModulesFactory;
 use EMQX\API\Factory\MqttFactory;
 use EMQX\API\Factory\PluginsFactory;
@@ -170,5 +171,15 @@ class EMQXClient
     public function modules(): ModulesFactory
     {
         return $this->container->make(ModulesFactory::class);
+    }
+
+    /**
+     * @return MetricsFactory
+     * @throws DependencyExceptionAlias
+     * @throws NotFoundException
+     */
+    public function metrics(): MetricsFactory
+    {
+        return $this->container->make(MetricsFactory::class);
     }
 }
