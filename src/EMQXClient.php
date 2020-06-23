@@ -10,6 +10,7 @@ use EMQX\API\Common\HttpClient;
 use EMQX\API\Common\HttpClientInterface;
 use EMQX\API\Common\Response;
 use EMQX\API\Factory\AlarmsFactory;
+use EMQX\API\Factory\BannedFactory;
 use EMQX\API\Factory\ClientsFactory;
 use EMQX\API\Factory\ListenersFactory;
 use EMQX\API\Factory\MetricsFactory;
@@ -203,5 +204,15 @@ class EMQXClient
     public function alarms(): AlarmsFactory
     {
         return $this->container->make(AlarmsFactory::class);
+    }
+
+    /**
+     * @return BannedFactory
+     * @throws DependencyExceptionAlias
+     * @throws NotFoundException
+     */
+    public function banned(): BannedFactory
+    {
+        return $this->container->make(BannedFactory::class);
     }
 }
