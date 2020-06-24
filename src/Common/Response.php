@@ -29,8 +29,8 @@ class Response
         $self = new self();
         $raw = $response->getBody()->getContents();
         $data = !empty($raw) ? json_decode($raw, true) : [];
-        $self->error = $data['code'] !== 0;
-        $self->data = $data['data'] ?? [];
+        $self->error = isset($data['code']) ? $data['code'] !== 0 : empty($data);
+        $self->data = $data['data'] ?? $data;
         $self->msg = $self->error ? (string)$data['code'] : 'ok';
         return $self;
     }

@@ -12,6 +12,7 @@ use EMQX\API\Common\Response;
 use EMQX\API\Factory\AlarmsFactory;
 use EMQX\API\Factory\BannedFactory;
 use EMQX\API\Factory\ClientsFactory;
+use EMQX\API\Factory\DataFactory;
 use EMQX\API\Factory\ListenersFactory;
 use EMQX\API\Factory\MetricsFactory;
 use EMQX\API\Factory\ModulesFactory;
@@ -214,5 +215,15 @@ class EMQXClient
     public function banned(): BannedFactory
     {
         return $this->container->make(BannedFactory::class);
+    }
+
+    /**
+     * @return DataFactory
+     * @throws DependencyExceptionAlias
+     * @throws NotFoundException
+     */
+    public function data(): DataFactory
+    {
+        return $this->container->make(DataFactory::class);
     }
 }
