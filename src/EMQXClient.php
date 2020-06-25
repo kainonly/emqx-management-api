@@ -19,6 +19,7 @@ use EMQX\API\Factory\MetricsFactory;
 use EMQX\API\Factory\ModulesFactory;
 use EMQX\API\Factory\MqttFactory;
 use EMQX\API\Factory\PluginsFactory;
+use EMQX\API\Factory\ResourceFactory;
 use EMQX\API\Factory\RoutesFactory;
 use EMQX\API\Factory\RulesFactory;
 use EMQX\API\Factory\StatsFactory;
@@ -247,5 +248,15 @@ class EMQXClient
     public function actions(): ActionsFactory
     {
         return $this->container->make(ActionsFactory::class);
+    }
+
+    /**
+     * @return ResourceFactory
+     * @throws DependencyExceptionAlias
+     * @throws NotFoundException
+     */
+    public function resource(): ResourceFactory
+    {
+        return $this->container->make(ResourceFactory::class);
     }
 }

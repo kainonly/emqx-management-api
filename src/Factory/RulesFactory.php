@@ -9,10 +9,10 @@ class RulesFactory extends Factory
 {
     /**
      * 查询规则引擎的动作
-     * @param string $rule_id
+     * @param string|null $rule_id
      * @return Response
      */
-    public function get(string $rule_id): Response
+    public function get(?string $rule_id = null): Response
     {
         return $this->client->request(
             'GET',
