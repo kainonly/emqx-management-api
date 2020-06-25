@@ -9,6 +9,7 @@ use DI\NotFoundException;
 use EMQX\API\Common\HttpClient;
 use EMQX\API\Common\HttpClientInterface;
 use EMQX\API\Common\Response;
+use EMQX\API\Factory\ActionsFactory;
 use EMQX\API\Factory\AlarmsFactory;
 use EMQX\API\Factory\BannedFactory;
 use EMQX\API\Factory\ClientsFactory;
@@ -236,5 +237,15 @@ class EMQXClient
     public function rules(): RulesFactory
     {
         return $this->container->make(RulesFactory::class);
+    }
+
+    /**
+     * @return ActionsFactory
+     * @throws DependencyExceptionAlias
+     * @throws NotFoundException
+     */
+    public function actions(): ActionsFactory
+    {
+        return $this->container->make(ActionsFactory::class);
     }
 }
