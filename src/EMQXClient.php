@@ -19,6 +19,7 @@ use EMQX\API\Factory\ModulesFactory;
 use EMQX\API\Factory\MqttFactory;
 use EMQX\API\Factory\PluginsFactory;
 use EMQX\API\Factory\RoutesFactory;
+use EMQX\API\Factory\RulesFactory;
 use EMQX\API\Factory\StatsFactory;
 use EMQX\API\Factory\SubscriptionsFactory;
 use GuzzleHttp\Client;
@@ -225,5 +226,15 @@ class EMQXClient
     public function data(): DataFactory
     {
         return $this->container->make(DataFactory::class);
+    }
+
+    /**
+     * @return RulesFactory
+     * @throws DependencyExceptionAlias
+     * @throws NotFoundException
+     */
+    public function rules(): RulesFactory
+    {
+        return $this->container->make(RulesFactory::class);
     }
 }
