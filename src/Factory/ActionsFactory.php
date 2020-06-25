@@ -9,10 +9,10 @@ class ActionsFactory extends Factory
 {
     /**
      * 查询规则引擎的动作
-     * @param string $action_name
+     * @param string|null $action_name
      * @return Response
      */
-    public function get(string $action_name): Response
+    public function get(?string $action_name = null): Response
     {
         return $this->client->request(
             'GET',
