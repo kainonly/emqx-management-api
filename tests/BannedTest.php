@@ -11,7 +11,7 @@ class BannedTest extends BaseTest
     {
         try {
             $response = $this->client->banned()->lists();
-            $this->assertFalse($response->isError());
+            self::assertFalse($response->isError());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
@@ -21,7 +21,7 @@ class BannedTest extends BaseTest
     {
         try {
             $response = $this->client->banned()->add('tester', 'username');
-            $this->assertFalse($response->isError());
+            self::assertFalse($response->isError());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
@@ -31,7 +31,7 @@ class BannedTest extends BaseTest
     {
         try {
             $response = $this->client->banned()->delete('tester', 'username');
-            $this->assertFalse($response->isError());
+            self::assertFalse($response->isError());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }

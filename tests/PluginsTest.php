@@ -11,7 +11,7 @@ class PluginsTest extends BaseTest
     {
         try {
             $response = $this->client->plugins()->lists();
-            $this->assertFalse($response->isError());
+            self::assertFalse($response->isError());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
@@ -21,7 +21,7 @@ class PluginsTest extends BaseTest
     {
         try {
             $response = $this->client->plugins()->listsForNodes($this->node);
-            $this->assertFalse($response->isError());
+            self::assertFalse($response->isError());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
@@ -31,7 +31,7 @@ class PluginsTest extends BaseTest
     {
         try {
             $response = $this->client->plugins()->load($this->node, 'emqx_auth_jwt');
-            $this->assertFalse($response->isError());
+            self::assertFalse($response->isError());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
@@ -41,7 +41,7 @@ class PluginsTest extends BaseTest
     {
         try {
             $response = $this->client->plugins()->reload($this->node, 'emqx_auth_jwt');
-            $this->assertFalse($response->isError());
+            self::assertFalse($response->isError());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
@@ -51,7 +51,7 @@ class PluginsTest extends BaseTest
     {
         try {
             $response = $this->client->plugins()->unload($this->node, 'emqx_auth_jwt');
-            $this->assertFalse($response->isError());
+            self::assertFalse($response->isError());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }

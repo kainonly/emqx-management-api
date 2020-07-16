@@ -11,7 +11,7 @@ class ActionsTest extends BaseTest
     {
         try {
             $response = $this->client->actions()->get('do_nothing');
-            $this->assertFalse($response->isError());
+            self::assertFalse($response->isError());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }

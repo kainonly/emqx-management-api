@@ -11,7 +11,7 @@ class ModulesTest extends BaseTest
     {
         try {
             $response = $this->client->modules()->lists();
-            $this->assertFalse($response->isError());
+            self::assertFalse($response->isError());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
@@ -21,7 +21,7 @@ class ModulesTest extends BaseTest
     {
         try {
             $response = $this->client->modules()->listsForNodes($this->node);
-            $this->assertFalse($response->isError());
+            self::assertFalse($response->isError());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
@@ -31,7 +31,7 @@ class ModulesTest extends BaseTest
     {
         try {
             $response = $this->client->modules()->load('emqx_mod_delayed');
-            $this->assertFalse($response->isError());
+            self::assertFalse($response->isError());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
@@ -41,7 +41,7 @@ class ModulesTest extends BaseTest
     {
         try {
             $response = $this->client->modules()->reload('emqx_mod_acl_internal');
-            $this->assertFalse($response->isError());
+            self::assertFalse($response->isError());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
@@ -51,7 +51,7 @@ class ModulesTest extends BaseTest
     {
         try {
             $response = $this->client->modules()->unload('emqx_mod_delayed');
-            $this->assertFalse($response->isError());
+            self::assertFalse($response->isError());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
@@ -61,7 +61,7 @@ class ModulesTest extends BaseTest
     {
         try {
             $response = $this->client->modules()->loadForNodes($this->node, 'emqx_mod_delayed');
-            $this->assertFalse($response->isError());
+            self::assertFalse($response->isError());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
@@ -71,7 +71,7 @@ class ModulesTest extends BaseTest
     {
         try {
             $response = $this->client->modules()->unloadForNodes($this->node, 'emqx_mod_delayed');
-            $this->assertFalse($response->isError());
+            self::assertFalse($response->isError());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
@@ -81,7 +81,7 @@ class ModulesTest extends BaseTest
     {
         try {
             $response = $this->client->modules()->reloadForNodes($this->node, 'emqx_mod_acl_internal');
-            $this->assertFalse($response->isError());
+            self::assertFalse($response->isError());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }

@@ -20,7 +20,7 @@ class MqttTest extends BaseTest
             $option->setQos(0);
             $option->setRetain(false);
             $response = $this->client->mqtt()->publish($option);
-            $this->assertFalse($response->isError());
+            self::assertFalse($response->isError());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
@@ -38,7 +38,7 @@ class MqttTest extends BaseTest
             $option->setQos(0);
             $option->setRetain(false);
             $response = $this->client->mqtt()->publishBatch([$option]);
-            $this->assertFalse($response->isError());
+            self::assertFalse($response->isError());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
@@ -51,7 +51,7 @@ class MqttTest extends BaseTest
                 [$this->topic],
                 $this->clientid
             );
-            $this->assertFalse($response->isError());
+            self::assertFalse($response->isError());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
@@ -66,7 +66,7 @@ class MqttTest extends BaseTest
                     'clientid' => $this->clientid
                 ]
             ]);
-            $this->assertFalse($response->isError());
+            self::assertFalse($response->isError());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
@@ -79,7 +79,7 @@ class MqttTest extends BaseTest
                 $this->topic,
                 $this->clientid
             );
-            $this->assertFalse($response->isError());
+            self::assertFalse($response->isError());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
@@ -91,7 +91,7 @@ class MqttTest extends BaseTest
             $response = $this->client->mqtt()->unsubscribeBatch([
                 ['topic' => $this->topic, 'clientid' => $this->clientid]
             ]);
-            $this->assertFalse($response->isError());
+            self::assertFalse($response->isError());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }

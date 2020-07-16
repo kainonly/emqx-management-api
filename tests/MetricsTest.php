@@ -11,7 +11,7 @@ class MetricsTest extends BaseTest
     {
         try {
             $response = $this->client->metrics()->lists();
-            $this->assertFalse($response->isError());
+            self::assertFalse($response->isError());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
@@ -21,7 +21,7 @@ class MetricsTest extends BaseTest
     {
         try {
             $response = $this->client->metrics()->listsForNodes($this->node);
-            $this->assertFalse($response->isError());
+            self::assertFalse($response->isError());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
@@ -31,7 +31,7 @@ class MetricsTest extends BaseTest
     {
         try {
             $response = $this->client->metrics()->listsTopic();
-            $this->assertFalse($response->isError());
+            self::assertFalse($response->isError());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
@@ -41,7 +41,7 @@ class MetricsTest extends BaseTest
     {
         try {
             $response = $this->client->metrics()->getTopic($this->topic);
-            $this->assertFalse($response->isError());
+            self::assertFalse($response->isError());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
@@ -51,7 +51,7 @@ class MetricsTest extends BaseTest
     {
         try {
             $response = $this->client->metrics()->addTopic($this->topic);
-            $this->assertFalse($response->isError());
+            self::assertFalse($response->isError());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
@@ -61,7 +61,7 @@ class MetricsTest extends BaseTest
     {
         try {
             $response = $this->client->metrics()->deleteTopic($this->topic);
-            $this->assertFalse($response->isError());
+            self::assertFalse($response->isError());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
@@ -71,7 +71,7 @@ class MetricsTest extends BaseTest
     {
         try {
             $response = $this->client->metrics()->deleteAllTopic();
-            $this->assertFalse($response->isError());
+            self::assertFalse($response->isError());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
