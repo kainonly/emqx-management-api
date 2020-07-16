@@ -11,7 +11,7 @@ class RoutesTest extends BaseTest
     {
         try {
             $response = $this->client->routes()->lists();
-            $this->assertFalse($response->isError());
+            self::assertFalse($response->isError());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
@@ -21,7 +21,7 @@ class RoutesTest extends BaseTest
     {
         try {
             $response = $this->client->routes()->get($this->topic);
-            $this->assertFalse($response->isError());
+            self::assertFalse($response->isError());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }

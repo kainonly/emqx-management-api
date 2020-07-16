@@ -11,7 +11,7 @@ class AlarmsTest extends BaseTest
     {
         try {
             $response = $this->client->alarms()->present($this->node);
-            $this->assertFalse($response->isError());
+            self::assertFalse($response->isError());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
@@ -21,7 +21,7 @@ class AlarmsTest extends BaseTest
     {
         try {
             $response = $this->client->alarms()->history($this->node);
-            $this->assertFalse($response->isError());
+            self::assertFalse($response->isError());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }

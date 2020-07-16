@@ -19,7 +19,7 @@ class RulesTest extends BaseTest
                     ]
                 ]
             );
-            $this->assertFalse($response->isError());
+            self::assertFalse($response->isError());
             return $response->getData()['id'];
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
@@ -35,7 +35,7 @@ class RulesTest extends BaseTest
     {
         try {
             $response = $this->client->rules()->get($id);
-            $this->assertFalse($response->isError());
+            self::assertFalse($response->isError());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
@@ -58,7 +58,7 @@ class RulesTest extends BaseTest
                     ]
                 ]
             );
-            $this->assertFalse($response->isError());
+            self::assertFalse($response->isError());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
@@ -72,7 +72,7 @@ class RulesTest extends BaseTest
     {
         try {
             $response = $this->client->rules()->delete($id);
-            $this->assertFalse($response->isError());
+            self::assertFalse($response->isError());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }

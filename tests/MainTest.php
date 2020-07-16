@@ -11,8 +11,8 @@ class MainTest extends BaseTest
     {
         try {
             $response = $this->client->endpoints();
-            $this->assertFalse($response->isError());
-            $this->assertNotEmpty($response->getData());
+            self::assertFalse($response->isError());
+            self::assertNotEmpty($response->getData());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
@@ -22,8 +22,8 @@ class MainTest extends BaseTest
     {
         try {
             $response = $this->client->brokers();
-            $this->assertFalse($response->isError());
-            $this->assertNotEmpty($response->getData());
+            self::assertFalse($response->isError());
+            self::assertNotEmpty($response->getData());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
@@ -33,12 +33,12 @@ class MainTest extends BaseTest
     {
         try {
             $response = $this->client->brokers();
-            $this->assertFalse($response->isError());
-            $this->assertNotEmpty($response->getData());
+            self::assertFalse($response->isError());
+            self::assertNotEmpty($response->getData());
             $node = $response->getData()[0]['node'];
             $response = $this->client->brokers($node);
-            $this->assertFalse($response->isError());
-            $this->assertNotEmpty($response->getData());
+            self::assertFalse($response->isError());
+            self::assertNotEmpty($response->getData());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }

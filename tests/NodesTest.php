@@ -11,8 +11,8 @@ class NodesTest extends BaseTest
     {
         try {
             $response = $this->client->nodes();
-            $this->assertFalse($response->isError());
-            $this->assertNotEmpty($response->getData());
+            self::assertFalse($response->isError());
+            self::assertNotEmpty($response->getData());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
@@ -22,12 +22,12 @@ class NodesTest extends BaseTest
     {
         try {
             $response = $this->client->nodes();
-            $this->assertFalse($response->isError());
-            $this->assertNotEmpty($response->getData());
+            self::assertFalse($response->isError());
+            self::assertNotEmpty($response->getData());
             $node = $response->getData()[0]['node'];
             $response = $this->client->nodes($node);
-            $this->assertFalse($response->isError());
-            $this->assertNotEmpty($response->getData());
+            self::assertFalse($response->isError());
+            self::assertNotEmpty($response->getData());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
