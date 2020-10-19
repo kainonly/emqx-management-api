@@ -9,11 +9,11 @@ class RoutesFactory extends Factory
 {
     /**
      * 返回集群下的所有路由信息，支持分页机制
-     * @param int|null $page 页码
-     * @param int|null $limit 每页显示的数据条数
+     * @param int $page 页码
+     * @param int $limit 每页显示的数据条数
      * @return Response
      */
-    public function lists(?int $page = null, ?int $limit = null): Response
+    public function lists(int $page = 1, int $limit = 10000): Response
     {
         return $this->client->request(
             'GET',

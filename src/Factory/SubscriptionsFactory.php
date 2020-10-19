@@ -9,19 +9,23 @@ class SubscriptionsFactory extends Factory
 {
     /**
      * 返回集群下所有订阅信息，支持分页机制
-     * @param int|null $page 页码
-     * @param int|null $limit 每页显示的数据条数
+     * @param int $page 页码
+     * @param int $limit 每页显示的数据条数
+     * @param array $option 支持多条件和模糊查询
      * @return Response
      */
-    public function lists(?int $page = null, ?int $limit = null): Response
+    public function lists(int $page = 1, int $limit = 10000, array $option = []): Response
     {
         return $this->client->request(
             'GET',
             ['subscriptions'],
-            [
-                '_page' => $page,
-                '_limit' => $limit
-            ]
+            array_merge(
+                [
+                    '_page' => $page,
+                    '_limit' => $limit
+                ],
+                $option
+            )
         );
     }
 
@@ -41,11 +45,11 @@ class SubscriptionsFactory extends Factory
     /**
      * 返回指定节点下的所有订阅信息，支持分页机制
      * @param string $node
-     * @param int|null $page
-     * @param int|null $limit
+     * @param int $page
+     * @param int $limit
      * @return Response
      */
-    public function listForNodes(string $node, ?int $page = null, ?int $limit = null): Response
+    public function listForNodes(string $node, int $page = 1, int $limit = 10000): Response
     {
         return $this->client->request(
             'GET',

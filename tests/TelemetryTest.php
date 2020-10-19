@@ -5,32 +5,32 @@ namespace EMQXAPITests;
 
 use Exception;
 
-class BannedTest extends BaseTest
+class TelemetryTest extends BaseTest
 {
-    public function testLists(): void
+    public function testGetStatus(): void
     {
         try {
-            $response = $this->client->banned()->lists();
+            $response = $this->client->telemetry()->getStatus();
             self::assertFalse($response->isError(), $response->getMsg());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
     }
 
-    public function testAdd(): void
+    public function testSetStatus(): void
     {
         try {
-            $response = $this->client->banned()->add('tester', 'username');
+            $response = $this->client->telemetry()->setStatus(true);
             self::assertFalse($response->isError(), $response->getMsg());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
     }
 
-    public function testDelete(): void
+    public function testData(): void
     {
         try {
-            $response = $this->client->banned()->delete('tester', 'username');
+            $response = $this->client->telemetry()->data();
             self::assertFalse($response->isError(), $response->getMsg());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());

@@ -11,7 +11,7 @@ class SubscriptionsTest extends BaseTest
     {
         try {
             $response = $this->client->subscriptions()->lists();
-            self::assertFalse($response->isError());
+            self::assertFalse($response->isError(), $response->getMsg());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
@@ -21,7 +21,7 @@ class SubscriptionsTest extends BaseTest
     {
         try {
             $response = $this->client->subscriptions()->get($this->clientid);
-            self::assertFalse($response->isError());
+            self::assertFalse($response->isError(), $response->getMsg());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
@@ -31,7 +31,7 @@ class SubscriptionsTest extends BaseTest
     {
         try {
             $response = $this->client->subscriptions()->listForNodes($this->node);
-            self::assertFalse($response->isError());
+            self::assertFalse($response->isError(), $response->getMsg());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
@@ -41,7 +41,7 @@ class SubscriptionsTest extends BaseTest
     {
         try {
             $response = $this->client->subscriptions()->getForNodes($this->node, $this->clientid);
-            self::assertFalse($response->isError());
+            self::assertFalse($response->isError(), $response->getMsg());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }

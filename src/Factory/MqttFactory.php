@@ -34,15 +34,15 @@ class MqttFactory extends Factory
             'POST',
             ['mqtt', 'publish_batch'],
             [],
-            array_map(fn($v) => $v->getBody(), $options)
+            array_map(static fn($v) => $v->getBody(), $options)
         );
     }
 
     /**
      * Subscribe a topic
-     * @param array $topics
-     * @param string $clientid
-     * @param int $qos
+     * @param array $topics 多个主题，使用此字段能够同时订阅多个主题
+     * @param string $clientid 客户端标识符
+     * @param int $qos QoS 等级
      * @return Response
      */
     public function subscribe(array $topics, string $clientid, int $qos = 0): Response
@@ -70,7 +70,7 @@ class MqttFactory extends Factory
             'POST',
             ['mqtt', 'subscribe_batch'],
             [],
-            array_map(fn($v) => [
+            array_map(static fn($v) => [
                 'topics' => implode(',', $v['topics']),
                 'clientid' => $v['clientid'],
                 'qos' => $v['qos'] ?? 0
@@ -80,8 +80,8 @@ class MqttFactory extends Factory
 
     /**
      * Unsubscribe a topic
-     * @param string $topic
-     * @param string $clientid
+     * @param string $topic 主题
+     * @param string $clientid 客户端标识符
      * @return Response
      */
     public function unsubscribe(string $topic, string $clientid): Response
@@ -94,7 +94,6 @@ class MqttFactory extends Factory
                 'topic' => $topic,
                 'clientid' => $clientid
             ]
-
         );
     }
 
