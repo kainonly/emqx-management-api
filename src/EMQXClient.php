@@ -24,6 +24,7 @@ use EMQX\API\Factory\RoutesFactory;
 use EMQX\API\Factory\RulesFactory;
 use EMQX\API\Factory\StatsFactory;
 use EMQX\API\Factory\SubscriptionsFactory;
+use EMQX\API\Factory\TelemetryFactory;
 use GuzzleHttp\Client;
 use Psr\Container\ContainerInterface;
 
@@ -258,5 +259,15 @@ class EMQXClient
     public function resource(): ResourceFactory
     {
         return $this->container->make(ResourceFactory::class);
+    }
+
+    /**
+     * @return TelemetryFactory
+     * @throws DependencyExceptionAlias
+     * @throws NotFoundException
+     */
+    public function telemetry(): TelemetryFactory
+    {
+        return $this->container->make(TelemetryFactory::class);
     }
 }

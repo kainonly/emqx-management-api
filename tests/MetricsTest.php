@@ -11,7 +11,7 @@ class MetricsTest extends BaseTest
     {
         try {
             $response = $this->client->metrics()->lists();
-            self::assertFalse($response->isError());
+            self::assertFalse($response->isError(), $response->getMsg());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
@@ -21,7 +21,7 @@ class MetricsTest extends BaseTest
     {
         try {
             $response = $this->client->metrics()->listsForNodes($this->node);
-            self::assertFalse($response->isError());
+            self::assertFalse($response->isError(), $response->getMsg());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
@@ -31,7 +31,7 @@ class MetricsTest extends BaseTest
     {
         try {
             $response = $this->client->metrics()->listsTopic();
-            self::assertFalse($response->isError());
+            self::assertFalse($response->isError(), $response->getMsg());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }

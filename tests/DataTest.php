@@ -11,7 +11,7 @@ class DataTest extends BaseTest
     {
         try {
             $response = $this->client->data()->getExport();
-            self::assertFalse($response->isError());
+            self::assertFalse($response->isError(), $response->getMsg());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
@@ -21,7 +21,7 @@ class DataTest extends BaseTest
     {
         try {
             $response = $this->client->data()->addExport();
-            self::assertFalse($response->isError());
+            self::assertFalse($response->isError(), $response->getMsg());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
@@ -31,10 +31,10 @@ class DataTest extends BaseTest
     {
         try {
             $response = $this->client->data()->getExport();
-            self::assertFalse($response->isError());
+            self::assertFalse($response->isError(), $response->getMsg());
             $filename = $response->getData()[0]['filename'];
             $response = $this->client->data()->import($filename);
-            self::assertFalse($response->isError());
+            self::assertFalse($response->isError(), $response->getMsg());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
@@ -44,10 +44,10 @@ class DataTest extends BaseTest
     {
         try {
             $response = $this->client->data()->getExport();
-            self::assertFalse($response->isError());
+            self::assertFalse($response->isError(), $response->getMsg());
             $filename = $response->getData()[0]['filename'];
             $response = $this->client->data()->download($filename);
-            self::assertFalse($response->isError());
+            self::assertFalse($response->isError(), $response->getMsg());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
@@ -57,13 +57,13 @@ class DataTest extends BaseTest
     {
         try {
             $response = $this->client->data()->getExport();
-            self::assertFalse($response->isError());
+            self::assertFalse($response->isError(), $response->getMsg());
             $filename = $response->getData()[0]['filename'];
             $response = $this->client->data()->download($filename);
-            self::assertFalse($response->isError());
+            self::assertFalse($response->isError(), $response->getMsg());
             $data = $response->getData();
             $response = $this->client->data()->upload($data['filename'], $data['file']);
-            self::assertFalse($response->isError());
+            self::assertFalse($response->isError(), $response->getMsg());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
@@ -73,10 +73,10 @@ class DataTest extends BaseTest
     {
         try {
             $response = $this->client->data()->getExport();
-            self::assertFalse($response->isError());
+            self::assertFalse($response->isError(), $response->getMsg());
             $filename = $response->getData()[0]['filename'];
             $response = $this->client->data()->delete($filename);
-            self::assertFalse($response->isError());
+            self::assertFalse($response->isError(), $response->getMsg());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }

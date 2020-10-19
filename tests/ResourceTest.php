@@ -11,7 +11,7 @@ class ResourceTest extends BaseTest
     {
         try {
             $response = $this->client->resource()->type();
-            self::assertFalse($response->isError());
+            self::assertFalse($response->isError(), $response->getMsg());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
@@ -21,7 +21,7 @@ class ResourceTest extends BaseTest
     {
         try {
             $response = $this->client->resource()->get();
-            self::assertFalse($response->isError());
+            self::assertFalse($response->isError(), $response->getMsg());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
@@ -40,7 +40,7 @@ class ResourceTest extends BaseTest
                     'method' => 'POST'
                 ]
             );
-            self::assertFalse($response->isError());
+            self::assertFalse($response->isError(), $response->getMsg());
             return $response->getData()['id'];
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
@@ -56,7 +56,7 @@ class ResourceTest extends BaseTest
     {
         try {
             $response = $this->client->resource()->delete($id);
-            self::assertFalse($response->isError());
+            self::assertFalse($response->isError(), $response->getMsg());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }

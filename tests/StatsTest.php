@@ -11,7 +11,7 @@ class StatsTest extends BaseTest
     {
         try {
             $response = $this->client->stats()->lists();
-            self::assertFalse($response->isError());
+            self::assertFalse($response->isError(), $response->getMsg());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
@@ -21,7 +21,7 @@ class StatsTest extends BaseTest
     {
         try {
             $response = $this->client->stats()->listsForNodes($this->node);
-            self::assertFalse($response->isError());
+            self::assertFalse($response->isError(), $response->getMsg());
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
         }
