@@ -74,7 +74,7 @@ SDK 遵循官网文档开发，https://docs.emqx.cn/broker/latest/advanced/http-
 
 ## 重大变更
 
-- `Response` 不再使用 `getData()` 并替换为 `getBody()` 返回接口默认响应体
+- 从`4.3.0` 版本开始 `Response` 不再使用 `getData()` 并替换为 `getBody()` 返回接口默认响应体
 
 
 

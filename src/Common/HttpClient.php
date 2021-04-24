@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace EMQX\API\Common;
 
-use Exception;
 use GuzzleHttp\Client;
 
 class HttpClient implements HttpClientInterface
@@ -34,21 +33,17 @@ class HttpClient implements HttpClientInterface
         ?array $body = null
     ): Response
     {
-        try {
-            $uri = array_filter($uri, fn($v) => $v !== null);
-            $options = [];
-            if (!empty($query)) {
-                $options['query'] = array_filter($query, fn($v) => $v !== null);
-            }
-            if (!empty($body)) {
-                $options['json'] = array_filter($body, fn($v) => $v !== null);
-            }
-            /** @noinspection PhpUnhandledExceptionInspection */
-            return Response::make(
-                $this->client->request($method, implode('/', $uri), $options)
-            );
-        } catch (Exception $exception) {
-            return Response::bad($exception->getMessage());
+        $uri = array_filter($uri, static fn($v) => $v !== null);
+        $options = [];
+        if (!empty($query)) {
+            $options['query'] = array_filter($query, static fn($v) => $v !== null);
         }
+        if (!empty($body)) {
+            $options['json'] = array_filter($body, static fn($v) => $v !== null);
+        }
+        /** @noinspection PhpUnhandledExceptionInspection */
+        return Response::make(
+            $this->client->request($method, implode('/', $uri), $options)
+        );
     }
 }
