@@ -8,17 +8,9 @@ use Psr\Http\Message\ResponseInterface;
 class Response
 {
     /**
-     * @var bool
-     */
-    private bool $error;
-    /**
-     * @var string
-     */
-    private string $msg;
-    /**
      * @var array
      */
-    private array $data;
+    private array $body = [];
 
     /**
      * @param ResponseInterface $response
@@ -27,24 +19,10 @@ class Response
     public static function make(ResponseInterface $response): self
     {
         $self = new self();
-        $raw = $response->getBody()->getContents();
-        $data = !empty($raw) ? json_decode($raw, true) : [];
-        $self->error = isset($data['code']) ? $data['code'] !== 0 : empty($data);
-        $self->data = $data['data'] ?? $data;
-        $self->msg = $self->error ? (string)$data['code'] : 'ok';
-        return $self;
-    }
-
-    /**
-     * @param string $reason
-     * @return static
-     */
-    public static function bad(string $reason): self
-    {
-        $self = new self();
-        $self->error = true;
-        $self->msg = $reason;
-        $self->data = [];
+        $contents = $response->getBody()->getContents();
+        if (!empty($contents)) {
+            $self->body = json_decode($contents, true);
+        }
         return $self;
     }
 
@@ -53,7 +31,7 @@ class Response
      */
     public function isError(): bool
     {
-        return $this->error;
+        return $this->body['code'] !== 0;
     }
 
     /**
@@ -61,15 +39,49 @@ class Response
      */
     public function getMsg(): string
     {
-        return $this->msg;
+        switch ($this->body['code']) {
+            case 0:
+                return '成功';
+            case 101:
+                return 'RPC 错误';
+            case 102:
+                return '未知错误';
+            case 103:
+                return '用户名或密码错误';
+            case 104:
+                return '空用户名或密码';
+            case 105:
+                return '用户不存在';
+            case 106:
+                return '管理员账户不可删除';
+            case 107:
+                return '关键请求参数缺失';
+            case 108:
+                return '请求参数错误';
+            case 109:
+                return '请求参数不是合法 JSON 格式';
+            case 110:
+                return '插件已开启';
+            case 111:
+                return '插件已关闭';
+            case 112:
+                return '客户端不在线';
+            case 113:
+                return '用户已存在';
+            case 114:
+                return '旧密码错误';
+            case 115:
+                return '不合法的主题';
+        }
+        return '未知';
     }
 
     /**
      * @return array
      */
-    public function getData(): array
+    public function getBody(): array
     {
-        return $this->data;
+        return $this->body;
     }
 
     /**
@@ -77,13 +89,10 @@ class Response
      */
     public function result(): array
     {
-        return $this->error ? [
-            'error' => 1,
-            'msg' => $this->msg
-        ] : [
-            'error' => 0,
-            'msg' => $this->msg,
-            'data' => $this->data
+        return [
+            'error' => $this->isError() ? 1 : 0,
+            'data' => $this->getBody(),
+            'msg' => $this->getMsg()
         ];
     }
 }

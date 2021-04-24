@@ -32,7 +32,7 @@ class DataTest extends BaseTest
         try {
             $response = $this->client->data()->getExport();
             self::assertFalse($response->isError(), $response->getMsg());
-            $filename = $response->getData()[0]['filename'];
+            $filename = $response->getBody()['data'][0]['filename'];
             $response = $this->client->data()->import($filename);
             self::assertFalse($response->isError(), $response->getMsg());
         } catch (Exception $e) {
@@ -45,7 +45,7 @@ class DataTest extends BaseTest
         try {
             $response = $this->client->data()->getExport();
             self::assertFalse($response->isError(), $response->getMsg());
-            $filename = $response->getData()[0]['filename'];
+            $filename = $response->getBody()['data'][0]['filename'];
             $response = $this->client->data()->download($filename);
             self::assertFalse($response->isError(), $response->getMsg());
         } catch (Exception $e) {
@@ -58,10 +58,10 @@ class DataTest extends BaseTest
         try {
             $response = $this->client->data()->getExport();
             self::assertFalse($response->isError(), $response->getMsg());
-            $filename = $response->getData()[0]['filename'];
+            $filename = $response->getBody()['data'][0]['filename'];
             $response = $this->client->data()->download($filename);
             self::assertFalse($response->isError(), $response->getMsg());
-            $data = $response->getData();
+            $data = $response->getBody()['data'];
             $response = $this->client->data()->upload($data['filename'], $data['file']);
             self::assertFalse($response->isError(), $response->getMsg());
         } catch (Exception $e) {
@@ -74,7 +74,7 @@ class DataTest extends BaseTest
         try {
             $response = $this->client->data()->getExport();
             self::assertFalse($response->isError(), $response->getMsg());
-            $filename = $response->getData()[0]['filename'];
+            $filename = $response->getBody()['data'][0]['filename'];
             $response = $this->client->data()->delete($filename);
             self::assertFalse($response->isError(), $response->getMsg());
         } catch (Exception $e) {

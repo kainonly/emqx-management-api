@@ -41,7 +41,7 @@ class ResourceTest extends BaseTest
                 ]
             );
             self::assertFalse($response->isError(), $response->getMsg());
-            return $response->getData()['id'];
+            return $response->getBody()['data']['id'];
         } catch (Exception $e) {
             $this->expectErrorMessage($e->getMessage());
             return null;
