@@ -1,16 +1,16 @@
-# EMQ X Management Api
+# EMQ X HTTP API
 
-EMQX Management HTTP API
+EMQ X 管理组件资源开放接口 PHP 的实现版
 
-## Setup
+## 安装
 
 ```shell
 composer require kain/emqx-management-api
 ```
 
-## Quick Start
+## 快速开始
 
-Create emqx client
+创建客户端
 
 ```php
 $emqx = \EMQX\API\EMQXClient::create(
@@ -28,7 +28,7 @@ if ($response->isError()) {
 var_dump($response->result());
 ```
 
-Or custom client
+或者自定义 `\GuzzleHttp\Client`
 
 ```php
 $client = new \GuzzleHttp\Client([
@@ -51,7 +51,7 @@ if ($response->isError()) {
 var_dump($response->result());
 ```
 
-Publish Message
+发布消息
 
 ```php
 $option = new \EMQX\API\Common\MqttPublishOption(
@@ -70,4 +70,11 @@ if ($response->isError()) {
 var_dump($response->result());
 ```
 
-Function calls are basically the same as the official API, https://docs.emqx.io/broker/latest/en/advanced/http-api.html
+SDK 遵循官网文档开发，https://docs.emqx.cn/broker/latest/advanced/http-api.html
+
+## 重大变更
+
+- `Response` 不再使用 `getData()` 并替换为 `getBody()` 返回接口默认响应体
+
+
+
