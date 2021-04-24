@@ -19,13 +19,10 @@ class ClientsFactory extends Factory
         return $this->client->request(
             'GET',
             ['clients'],
-            array_merge(
-                [
-                    '_page' => $page,
-                    '_limit' => $limit
-                ],
-                $option
-            )
+            array_merge([
+                '_page' => $page,
+                '_limit' => $limit
+            ], $option)
         );
     }
 
